@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes LOG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+
+        table{
+            width: 80;
+            border-collapse: 8px;
+            margin: 20px auto;
+        }
+        th,td {
+            border: 1px solid #ddd;
+            padding:8px;
+            text-align: left;
+        }
+        th{
+            background-color: #f2f2f2;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Registro</h1>
+
+    <table>
+        <tr>
+            <th>Fecha y hora </th>
+            <th>Mensaje</th>
+        </tr>
+        {% for registro in registros %}
+          <tr>
+            <td>{{registro.fecha_y_hora}}</td>
+            <td>{{registro.texto}}</td>
+          </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
