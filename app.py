@@ -46,7 +46,7 @@ def agregar_mensajes_log(texto):
 
 #Token de verificacion para la configuracion
 TOKEN_ANDERCODE = "ANDERCODE"
-@app.routte('\webhook',methods = ['GET','POST'])
+@app.route('\webhook',methods = ['GET','POST'])
 def webhook():
     if request.method == 'GET':
         challenge = verificar_token(request)
