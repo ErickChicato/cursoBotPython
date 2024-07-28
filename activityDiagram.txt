@@ -1,0 +1,36 @@
+@startuml
+:Inicio;
+:Configurar base de datos;
+:Definir modelo Log;
+:Crear tabla si no existe;
+partition "Función ordenar_por_fecha_hora" {
+    :Ordenar registros por fecha y hora;
+}
+partition "Ruta /" {
+    :Obtener todos los registros de la base de datos;
+    :Ordenar registros por fecha y hora;
+    :Renderizar plantilla index.html con registros ordenados;
+}
+partition "Función agregar_mensajes_log" {
+    :Agregar mensaje a mensajes_log;
+    :Guardar mensaje en la base de datos;
+    :Crear nuevo registro;
+    :Añadir nuevo registro a la sesión;
+    :Confirmar cambios en la base de datos;
+}
+partition "Ruta /webhook" {
+    :Verificar método de solicitud;
+    if (GET) then (sí)
+        :Verificar token;
+        :Devolver desafío;
+    else (no)
+        if (POST) then (sí)
+            :Recibir mensaje;
+            :Devolver respuesta;
+        else (no)
+            :Error;
+        endif
+    endif
+}
+:Fin;
+@enduml
