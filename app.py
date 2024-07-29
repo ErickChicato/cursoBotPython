@@ -52,7 +52,7 @@ def webhook():
         challenge = verificar_token(request)
         return challenge
     elif request.method == 'POST':
-        response = recibir_mensaje()
+        response = recibir_mensaje(request)
         return response
         
 def verificar_token(req):
