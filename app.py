@@ -43,6 +43,13 @@ def agregar_mensajes_log(texto):
     db.session.add(nuevo_registro)
     db.session.commit()
     
+def recibir_mensaje(req): 
+    req = request.get_json()
+    agregar_mensajes_log(req)
+    
+    return jsonify({'message':'EVENT_RECEIVED'})
+
+
 
 #Token de verificacion para la configuracion
 TOKEN_ANDERCODE = "ANDERCODE"
@@ -64,12 +71,6 @@ def verificar_token(req):
         return challenge
     else:
         return jsonify({'error':'Token Invalido'}),401
-
-def recibir_mensaje(req): 
-    req = request.get_json()
-    agregar_mensajes_log(req)
-    
-    return jsonify({'message':'EVENT_RECEIVED'})
 
 
 
