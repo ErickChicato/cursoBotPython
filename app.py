@@ -43,7 +43,7 @@ def agregar_mensajes_log(texto):
     db.session.add(nuevo_registro)
     db.session.commit()
     
-def recibir_mensaje(req): 
+def recibir_mensajes(req): 
     req = request.get_json()
     agregar_mensajes_log(req)
     
