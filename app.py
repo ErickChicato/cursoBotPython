@@ -65,19 +65,19 @@ def verificar_token(req):
         return jsonify({'error':'Token Invalido'}),401
 
 def recibir_mensajes(req):
-    #Se tuvo que modificar debido a que tienes un JSON diferente
     try:
         req = request.get_json()
-        fromM = req['from'][0]
-        text = req['text']
+        fromM = req['from']
+        text_body = req['text']['body']
         Type = req['type']
         
-        agregar_mensajes_log(json.dumps(text)) #Para hacer una prueba y que se guarde en una base de datos
+        agregar_mensajes_log(json.dumps(text_body)) #Para hacer una prueba y que se guarde en una base de datos
         
-         
-        return jsonify({'message':'EVENT_RECEIVED'})
+        return jsonify({'message': 'EVENT_RECEIVED'})
     except Exception as e:
-        return jsonify({'message':'EVENT_RECEIVED'})
+        return jsonify({'message': 'EVENT_RECEIVED'})
+    
+
 
 def enviar_mensajes_whatsapp(texto,number):
     texto = texto.lower()
