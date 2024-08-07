@@ -71,7 +71,7 @@ def recibir_mensajes(req):
         text_body = req['text']['body']
         Type = req['type']
         
-        agregar_mensajes_log(json.dumps(text_body)) #Para hacer una prueba y que se guarde en una base de datos
+        agregar_mensajes_log(text_body)# Para hacer una prueba y que se guarde en una base de datos
         
         return jsonify({'message': 'EVENT_RECEIVED'})
     except Exception as e:
