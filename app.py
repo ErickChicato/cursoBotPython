@@ -65,46 +65,16 @@ def verificar_token(req):
         return jsonify({'error':'Token Invalido'}),401
 
 def recibir_mensajes(req):
+    #Se tuvo que modificar debido a que tienes un JSON diferente
     try:
         req = request.get_json()
-        entry =req['entry'][0]
-        changes = entry['changes'][0]
-        value = changes['value']
-        objeto_mensaje = value['messages']
-
-        if objeto_mensaje:
-            messages = objeto_mensaje[0]
-
-            if "type" in messages:
-                tipo = messages["type"]
-
-                #Guardar Log en la BD
-                agregar_mensajes_log(json.dumps(messages))
-
-                if tipo == "interactive":
-                    tipo_interactivo = messages["interactive"]["type"]
-
-                    if tipo_interactivo == "button_reply":
-                        text = messages["interactive"]["button_reply"]["id"]
-                        numero = messages["from"]
-
-                        enviar_mensajes_whatsapp(text,numero)
-                    
-                    elif tipo_interactivo == "list_reply":
-                        text = messages["interactive"]["list_reply"]["id"]
-                        numero = messages["from"]
-
-                        enviar_mensajes_whatsapp(text,numero)
-
-                if "text" in messages:
-                    text = messages["text"]["body"]
-                    numero = messages["from"]
-
-                    enviar_mensajes_whatsapp(text,numero)
-
-                    #Guardar Log en la BD
-                    agregar_mensajes_log(json.dumps(messages))
-
+        fromM = req['from'][0]
+        text = req['text']
+        Type = req['type']
+        
+        agregar_mensajes_log(text) #Para hacer una prueba y que se guarde en una base de datos
+        
+         
         return jsonify({'message':'EVENT_RECEIVED'})
     except Exception as e:
         return jsonify({'message':'EVENT_RECEIVED'})
